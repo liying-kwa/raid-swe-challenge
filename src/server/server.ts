@@ -37,17 +37,19 @@ AppDataSource.initialize()
         app.use(express.json());
 
         // APIs
-        app.get('/', (req: Request, res: Response) => {
-            res.send('Hello, this is Express + TypeScript');
-        });
-
         app.get('/fruits', (req: Request, res: Response) => {
             manager.find(Fruit)
                 .then((fruits) => res.send(fruits))
                 .catch((err) => console.error("Error fetching fruits: ", err))
         });
 
-        app.post('/transactions', async (req: Request, res: Response) => {
+        app.get('/transactions', (req: Request, res: Response) => {
+            manager.find(Transaction)
+                .then((transactions) => res.send(transactions))
+                .catch((err) => console.error("Error fetching transactions: ", err))
+        });
+
+        app.post('/transactions', (req: Request, res: Response) => {
             const totalPrice = req.body.totalPrice;
             const selectedFruits = req.body.selectedFruits;
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Button, Center, Flex, HStack, Heading, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Text, color } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, HStack, Heading, Link, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Text, color } from '@chakra-ui/react'
 import FruitListItem from './components/FruitListItem'
 import { useEffect, useState } from 'react'
 import { BACKEND_URL } from './constants/constants'
@@ -58,7 +58,6 @@ export default function Home() {
   }
 
   function submit() {
-    console.log(JSON.stringify({ selectedFruits: selectedFruits, totalPrice: totalPrice }));
     fetch(`${BACKEND_URL}/transactions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -115,6 +114,13 @@ export default function Home() {
         </Box>
       }
       {error && <Heading ml={48} mt={24} as='h3' size='lg' color='red.500'> Error retrieving data from database</Heading>}
+      <Box ml={48} mt={16}>
+        <Button colorScheme='teal' size='md'>
+          <Link href='/transactions'>
+            Go to Transactions
+          </Link>
+        </Button>
+      </Box>
     </main>
   )
 }
