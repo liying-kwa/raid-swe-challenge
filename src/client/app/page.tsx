@@ -70,7 +70,7 @@ export default function Home() {
   return (
     <main className="bg-white flex min-h-screen flex-col">
       <Center w='100%' h={32} bgColor='teal'>
-        <Heading>Jenny's Fruit Store</Heading>
+        <Heading>Jenny{"'"}s Fruit Store</Heading>
       </Center>
       {!error &&
         <Box ml={48} alignItems='center'>
@@ -81,7 +81,7 @@ export default function Home() {
           </Flex>
           {selectedFruits.length == 0 &&
             <Text mt={8}>
-              Cart is empty. Click on "Add item" to start!
+              Cart is empty. Click on {'"'}Add item{'"'} to start!
             </Text>}
           {selectedFruits.length != 0 &&
             <Box>

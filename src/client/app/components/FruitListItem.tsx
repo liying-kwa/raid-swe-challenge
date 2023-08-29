@@ -32,7 +32,7 @@ export default function FruitListItem(props: FruitListItemProps) {
                     props.changeFruit(props.index, newSelectedFruit, price);
                 }}
             >
-                {props.fruits.map((fruit) => <option value={fruit.name}>{fruit.name}</option>)}
+                {props.fruits.map((fruit, index) => <option key={index} value={fruit.name}>{fruit.name}</option>)}
             </Select>
             <NumberInput
                 w={128}

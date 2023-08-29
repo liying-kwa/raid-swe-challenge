@@ -56,8 +56,8 @@ export default function Transactions() {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {transactions.map((transaction) =>
-                                <Tr>
+                            {transactions.map((transaction, index) =>
+                                <Tr key={index}>
                                     <Td>{transaction.items.map((x) => x.quantity).reduce((a, b) => a + b)}</Td>
                                     <Td>${transaction.totalPrice}</Td>
                                     <Td>{new Date(transaction.created_at).toLocaleString('en-US', { timeZone: 'Asia/Singapore' })} SGT</Td>
