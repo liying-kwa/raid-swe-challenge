@@ -2,7 +2,7 @@
 
 import { Box, Button, Center, Flex, HStack, Heading, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, Text, color } from '@chakra-ui/react'
 import FruitListItem from './components/FruitListItem'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export interface FruitDetails {
   name: string,
@@ -24,13 +24,17 @@ const fruits = [
 
 export default function Home() {
   const [selectedFruits, setSelectedFruits] = useState<SelectedFruitDetails[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   function addItem() {
-    setSelectedFruits([...selectedFruits, { name: 'Apple', quantity: 1, price: 2.00 }]);
+    const newSelectedFruits = [...selectedFruits, { name: 'Apple', quantity: 1, price: 2.00 }];
+    setSelectedFruits(newSelectedFruits);
+    setTotalPrice(newSelectedFruits.map((fruit) => fruit.price).reduce((a, b) => a + b));
   }
 
   function clearItems() {
     setSelectedFruits([]);
+    setTotalPrice(0);
   }
 
   function changeFruit(index: number, fruit: string, price: number) {
@@ -38,6 +42,7 @@ export default function Home() {
     newSelectedFruits[index].name = fruit;
     newSelectedFruits[index].price = price;
     setSelectedFruits(newSelectedFruits);
+    setTotalPrice(newSelectedFruits.map((fruit) => fruit.price).reduce((a, b) => a + b));
   }
 
   function changeQuantity(index: number, quantity: number, price: number) {
@@ -45,6 +50,7 @@ export default function Home() {
     newSelectedFruits[index].quantity = quantity;
     newSelectedFruits[index].price = price;
     setSelectedFruits(newSelectedFruits);
+    setTotalPrice(newSelectedFruits.map((fruit) => fruit.price).reduce((a, b) => a + b));
   }
 
   function submit() {
@@ -91,7 +97,7 @@ export default function Home() {
 
             <HStack mt={8}>
               <Heading as='h5' size='sm'>Total price:</Heading>
-              <Text>${selectedFruits.map((fruit) => fruit.price).reduce((a, b) => a + b)}</Text>
+              <Text>${totalPrice}</Text>
             </HStack>
           </Box>
         }
