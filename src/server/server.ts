@@ -47,21 +47,22 @@ AppDataSource.initialize()
                 .catch((err) => console.error("Error fetching fruits: ", err))
         });
 
-        app.get('/transactions', async (req: Request, res: Response) => {
-            // TODO
+        app.post('/transactions', async (req: Request, res: Response) => {
+            const totalPrice = req.body.totalPrice;
+            const selectedFruits = req.body.selectedFruits;
+
+            // simple validation
+            if (!totalPrice || !selectedFruits) {
+                res.status(400).send('Missing parameters');
+            }
+
+            const items = selectedFruits.map((x: { name: string, quantity: number, price: number }) => { return { fruit: x.name, quantity: x.quantity, price: x.price } });
+
             const transaction = new Transaction();
-            const item1 = new TransactionItem();
-            item1.fruit = 'Orange';
-            item1.quantity = 2;
-            item1.price = 3.60;
-            const item2 = new TransactionItem();
-            item2.fruit = 'Apple';
-            item2.quantity = 3;
-            item2.price = 6;
-            transaction.items = [item1, item2];
-            transaction.totalPrice = 3.60;
+            transaction.items = items;
+            transaction.totalPrice = totalPrice;
             manager.save(transaction);
-            res.send('GET /transactions')
+            res.status(200).send();
         });
 
         app.listen(port, () => {

@@ -58,7 +58,14 @@ export default function Home() {
   }
 
   function submit() {
-    console.log(selectedFruits);
+    console.log(JSON.stringify({ selectedFruits: selectedFruits, totalPrice: totalPrice }));
+    fetch(`${BACKEND_URL}/transactions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ selectedFruits: selectedFruits, totalPrice: totalPrice })
+    })
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
   }
 
   return (
