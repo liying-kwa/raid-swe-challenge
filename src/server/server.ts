@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { Fruit } from "./entity/Fruit"
 import express, { Express, Request, Response } from 'express';
 import * as dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -23,6 +24,13 @@ const port = 8080;
 AppDataSource.initialize()
     .then(() => {
         console.log("Data Source has been initialized!")
+
+        const allowedOrigins = ['http://localhost:3000'];
+        const options: cors.CorsOptions = {
+            origin: allowedOrigins
+        };
+        app.use(cors(options));
+        app.use(express.json());
 
         app.get('/', (req: Request, res: Response) => {
             res.send('Hello, this is Express + TypeScript');
